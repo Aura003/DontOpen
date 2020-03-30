@@ -37,3 +37,8 @@
 *.opendb
 *.suo
 *.ipch
+*.pdb
+*.log
+*.tlog
+*.lastbuildstate
+*.idb

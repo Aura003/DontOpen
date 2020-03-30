@@ -2,65 +2,87 @@
 #include<iostream>
 #include<string>
 #include<conio.h>
+//#include"iLvLEngine.h"
+//#include"EngineAlpha.h"
+#include<SDL.h>
+#include<SDL_image.h>
+#include<assert.h>
 
-#define PI 3.14159265f
-#define RAD2DEG(r) r* 180/PI
-//#undef RAD2DEG
+//#include "Listint.h"
 
-#define CHECK_NBPARAM(count, required);\
-if(count - 2 < required)\
-{\
-    printf("ERROR: Requires %d arguments",required);\
-    return EXIT_FAILURE; \
-}
 
 int main(int nb, char* args[]) 
 {    
-   /* printf("%f", PI);
-    float deg = RAD2DEG(18.5f);
-    std::cout << deg << std::endl;*/
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) 
+    {
+        printf("SDL could not initialize! SDL-ERROR: %s\n", SDL_GetError());
+        return EXIT_FAILURE;
+    }
+    //create window
+    SDL_Window* window = SDL_CreateWindow ("SDL My Window",
+                                                                                SDL_WINDOWPOS_CENTERED, //pos x
+                                                                                SDL_WINDOWPOS_CENTERED, //pos y
+                                                                                1024, //width
+                                                                                768, //height
+                                                                                SDL_WINDOW_HIDDEN); //fullscreen , etc
 
-    std::string operation;
+    SDL_Renderer* renderer = NULL;
+    SDL_Texture* texture = NULL;
+    if (window == NULL) 
+    {
+        printf("Window could not be created! SDL_Error : %s \n", SDL_GetError());
+    }
+    else 
+    {
+        SDL_ShowWindow(window);
+        //The surface contained by window
+        SDL_Surface* screenSurface = NULL;
+        //Get window surface
+        screenSurface = SDL_GetWindowSurface(window);
+        //Fill the surface white
+        SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0, 200, 0));
+        //Update the surface
+        SDL_UpdateWindowSurface(window);
+        //Wait for 2 seconds
+        SDL_Delay(2000);
+       
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+       
+        assert(IMG_Init(IMG_INIT_PNG) != 0);
 
-    for (int i = 0; i < nb; i++) 
-    {
-        printf("%s\n", args[i]);
-    }
-   /* int a = std::stoi(args[1]);
-    int b = std::stoi(args[2]);
-    int result = a + b;*/
+        SDL_Surface* texSurface = IMG_Load("../assets/Ohyea.png");
+        texture = SDL_CreateTextureFromSurface(renderer, texSurface);
+        SDL_FreeSurface(texSurface);
+        texSurface = NULL;
+        
+        SDL_Rect rect;
+        rect.x = rect.y = 0;
+        rect.w = rect.h = 64;
 
+        bool running = true;
+        SDL_Event event;
+        while (running) 
+         {
+            while (SDL_PollEvent(&event) != 0) 
+             {
+                switch (event.type) 
+                {
+                case SDL_QUIT:
+                    running = false;
+                    break;
+                }
+             }
+            SDL_RenderClear(renderer);
+            SDL_RenderCopy(renderer, texture, NULL, &rect);
+            SDL_RenderPresent(renderer);
+            //update Engine
+            //draw Engine
+         }
+    }
 
-    operation = std::string(args[1]);
-    int result;
-    if (operation == "add") 
-    {
-        CHECK_NBPARAM(nb, 2)
-        int k = std::stoi(args[2]);
-        int j = std::stoi(args[3]);
-        printf("%d, + %d = %d", k, j, result = k + j);
-    }
-    else if (operation == "subtract") 
-    {
-        CHECK_NBPARAM(nb, 2)
-        int k = std::stoi(args[2]);
-        int j = std::stoi(args[3]);
-        printf("%d - %d = %d", k, j, result = k - j);
-    }
-    else if (operation == "multiply") 
-    {
-        CHECK_NBPARAM(nb,2)
-        int k = std::stoi(args[2]);
-        int j = std::stoi(args[3]);
-        printf("%d * %d = %d", k, j, result = k * j);
-    }
-    else if (operation == "Rad2Deg")
-    {
-        CHECK_NBPARAM(nb, 1)
-        float m = std::stof(args[2]);
-        float gg = RAD2DEG(m);
-        printf("Radian to Degree of %f = %f: ",m,gg);
-    }
-   /* printf("%d + %d =%d\n", a, b, result);*/
-    return EXIT_SUCCESS;
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+   return EXIT_SUCCESS;
  }
+
