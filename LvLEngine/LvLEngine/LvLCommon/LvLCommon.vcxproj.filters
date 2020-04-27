@@ -21,5 +21,29 @@
     <ClInclude Include="LvLBaseDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iLvLGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LvLEngineStub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLPhysicsEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLPhysicsBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

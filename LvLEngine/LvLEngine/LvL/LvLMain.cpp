@@ -1,9 +1,24 @@
 #include "stdafx.h"
 #include"iLvLEngine.h"
+#include"iLvLRenderer.h"
+#include"iLvLTexture.h"
+#include "LvLTransform.h"
+#include "LvLEntitySystem.h"
 #include"LvLEngineAlpha.h"
+#include"LvLEngineModules.h"
+
+using namespace std;
 
 int main(int nb, char* args[]) 
 {
+    const char* game = "Game01";
+    if (nb >= 2) 
+    {
+        game = args[1];
+    }
+    LvLEngineModules::RendererDLL = "LvL2D";
+    LvLEngineModules::PhysicsDLL = "LvLPhysics2D";
+
     LvLWindowParams wp;
     wp.Width = 640;
     wp.Height = 480;
@@ -14,13 +29,47 @@ int main(int nb, char* args[])
     engine.Initialize(wp);
 
     engine.StartEngine();
+    engine.LoadResourceFolder("assets");
+    engine.LoadGame(game);
 
-    while (engine.Update()) 
+    //b2Vec2 gravity(0, 9.8f);
+    //b2World world(gravity);
+
+    ////creation of RigidBody
+    //b2BodyDef bodyDef; //config of rigid body
+    //bodyDef.type = b2BodyType::b2_dynamicBody;
+
+    //b2Body* body = world.CreateBody(&bodyDef); //rigidbody
+
+    ////creation of collider
+    //b2PolygonShape shape; //collider
+    //shape.SetAsBox(32, 32);
+
+    //b2Fixture* fixture = body->CreateFixture(&shape, 1.0f); //collider
+
+    //LvLTransform* transform = engine.GetEntitySystem()->GetEntity("bouncy")->GetTransform();
+
+    //SDL_Rect rect;
+    //rect.x = rect.y = 0;
+    //rect.w = rect.h = 128;
+
+    //LvLDrawOp test; //temporary 
+    //strcpy_s(test.ResourceName, "../assets/Ohyea.png");
+
+    while (engine.Update())
      {
+        /*world.Step(1.0 / 30, 2, 6);
+        b2Vec2 pos = body->GetPosition();
+        transform->Position.x = pos.x;
+        transform->Position.y = pos.y;*/
+
+        engine.BeginDraw();
         engine.Draw();
+        engine.Present();
      }
+    //texture->Release();
     engine.ShutDown();
-    
+
     return _getch();
 }
 

@@ -91,14 +91,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;..\3rdParty\SDL2_image-2.0.5\include;..\3rdParty\box2d-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x64;..\lib64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;box2d_debug.lib;%(AdditionalDependencies);box2d_debug.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x64;..\lib64\;..\3rdParty\SDL2_image-2.0.5\lib\x64;..\3rdParty\box2d-master\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -107,14 +108,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;..\3rdParty\SDL2_image-2.0.5\include;..\3rdParty\box2d-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x86;..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;box2d_debug.lib;SDL2_image.lib;%(AdditionalDependencies);box2d_debug.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x86;..\lib\;..\3rdParty\SDL2_image-2.0.5\lib\x86;..\3rdParty\box2d-master\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -125,16 +127,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;..\3rdParty\SDL2_image-2.0.5\include;..\3rdParty\box2d-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x86;..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;box2d.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x86;..\lib\;..\3rdParty\SDL2_image-2.0.5\lib\x86;..\3rdParty\box2d-master\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,25 +148,30 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LvLCommon\;..\3rdParty\SDL2-2.0.12\include;..\LvLCore\;..\3rdParty\SDL2_image-2.0.5\include;..\3rdParty\box2d-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x64;..\lib64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;LvLCore.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\3rdParty\SDL2-2.0.12\lib\x64;..\lib64\;..\3rdParty\SDL2_image-2.0.5\lib\x64;..\3rdParty\box2d-master\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LvLEngineAlpha.cpp" />
+    <ClCompile Include="LvLEngineInput.cpp" />
+    <ClCompile Include="LvLEngineModules.cpp" />
     <ClCompile Include="LvLMain.cpp" />
     <ClCompile Include="stdafxcpp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LvLEngineAlpha.h" />
+    <ClInclude Include="LvLEngineInput.h" />
+    <ClInclude Include="LvLEngineModules.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

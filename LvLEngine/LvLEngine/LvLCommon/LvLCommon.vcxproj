@@ -139,7 +139,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="iLvLEngine.h" />
+    <ClInclude Include="iLvLInput.h" />
+    <ClInclude Include="iLvLPhysicsBody.h" />
+    <ClInclude Include="iLvLPhysicsEngine.h" />
+    <ClInclude Include="iLvLRenderer.h" />
+    <ClInclude Include="iLvLTexture.h" />
     <ClInclude Include="LvLBaseDef.h" />
+    <ClInclude Include="iLvLGame.h" />
+    <ClInclude Include="iLvLResource.h" />
+    <ClInclude Include="LvLEngineStub.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

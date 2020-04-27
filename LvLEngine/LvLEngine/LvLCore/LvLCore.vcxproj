@@ -91,6 +91,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\LvLCommon\</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,6 +105,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\LvLCommon\</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,6 +121,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\LvLCommon\</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +139,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\LvLCommon\</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,9 +151,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LvLEntitySystem.cpp" />
+    <ClCompile Include="LvLResourceManager.cpp" />
+    <ClCompile Include="LvLRigidBody.cpp" />
+    <ClCompile Include="LvLSpriteRenderer.cpp" />
+    <ClCompile Include="LvLTransform.cpp" />
+    <ClCompile Include="LvLUtils.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="iLvLComponent.h" />
     <ClInclude Include="LvLEntitySystem.h" />
+    <ClInclude Include="LvLResourceManager.h" />
+    <ClInclude Include="LvLRigidBody.h" />
+    <ClInclude Include="LvLSpriteRenderer.h" />
+    <ClInclude Include="LvLTransform.h" />
+    <ClInclude Include="LvLUtils.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

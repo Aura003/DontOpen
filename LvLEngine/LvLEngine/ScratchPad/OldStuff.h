@@ -32,6 +32,24 @@ const char* name = "the Boss";
 
 class DInosaurToy
 {
+    //vector<int> mylist;
+//mylist.push_back(100);
+//mylist.push_back(2000);
+//mylist.pop_back();
+
+//int* p = &mylist[0];
+
+//for (int i = 0; i < mylist.size(); i++) 
+//{
+//    int xx = *p;
+//    p++;
+//}
+////std::map
+//for (vector<int>::iterator it = mylist.begin(); it != mylist.end();it++)
+//{
+//    int xx = *it;
+//}
+
 public:
     void initialize(int hp)
     {
