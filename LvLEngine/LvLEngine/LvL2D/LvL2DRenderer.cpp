@@ -12,6 +12,27 @@ LvL2DRenderer::~LvL2DRenderer()
 	ShutDown();
 }
 
+void LvL2DRenderer::SetCameraPosition(const XMFLOAT3& pos)
+{
+	_cameraPos = pos;
+}
+
+XMFLOAT3 LvL2DRenderer::GetCameraPosition() const
+{
+	return _cameraPos;
+}
+
+void LvL2DRenderer::SetCameraZoom(float zoom)
+{
+	_zoom = zoom;
+	SDL_RenderSetScale(_pRenderer, _zoom, _zoom);
+}
+
+float LvL2DRenderer::GetCameraZoom() const
+{
+	return _zoom;
+}
+
 void LvL2DRenderer::PrepareDOP(const LvLDrawOp& dop)
 {
 	LvLDrawOp newdop = dop;
@@ -43,6 +64,11 @@ void LvL2DRenderer::Draw()
 	std::sort(_pDrawOps.begin(), _pDrawOps.end(), _SortDrawOperations);
 	SDL_Rect rect;
 	rect.x = rect.y = 0;
+
+	int width, height;
+	SDL_GetRendererOutputSize(_pRenderer, &width, &height);
+	int hw = width >> 1; //getting half of width
+	int hh = height >> 1;
 	//int nb = _pDrawOps.size();
 	for (DRAWOPLIST_IT it = _pDrawOps.begin(); it != _pDrawOps.end(); it++) 
 	{
@@ -55,8 +81,8 @@ void LvL2DRenderer::Draw()
 		size.y = (int)(size.y * dop.Scale.y);
 		
 
-		rect.x = (int)(dop.Position.x - (size.x * 0.5f));
-		rect.y = -(int)(dop.Position.y + (size.y * 0.5f));
+		rect.x = (int)((dop.Position.x - (size.x * 0.5f) - _cameraPos.x) + hw/_zoom);
+		rect.y = -(int)((dop.Position.y + (size.y * 0.5f) - _cameraPos.y)-hh/_zoom);
 
 		rect.w = size.x; 
 		rect.h = size.y;

@@ -9,6 +9,7 @@ class iLvLGame;
 class iLvLRenderer;
 class LvLEntitySystem;
 class iLvLPhysicsEngine;
+class iLvLSoundSystem;
 //class LvLResourceManager;
 
 class EngineAlpha : public iLvLEngine
@@ -25,6 +26,7 @@ public:
 	virtual void Present() override;
 
 	virtual iLvLRenderer* GetRenderer() override;
+	virtual iLvLSoundSystem* GetSoundSystem() override;
 	virtual void* GetWindowHandle() override;
 	virtual LvLResourceManager* GetResourceManager() override;
 	// Inherited via iLvLEngine
@@ -35,6 +37,8 @@ public:
 	virtual iLvLPhysicsEngine* GetPhysicsEngine()override;
 
 	// Inherited via iLvLEngine
+	virtual iLvLSound* LoadSound(const char* path) override;
+	virtual iLvLSound* GetSound(const char* id) override;
 	virtual void LoadGame(const char* game) override;
 	virtual void UnloadGame() override;
 
@@ -48,12 +52,17 @@ private:
 	bool _running = false;
 	iLvLGame* _pGame;
 	iLvLRenderer* _pRenderer = NULL;
+	iLvLSoundSystem* _pSoundSystem = NULL;
 
 	LvLResourceManager _resourceManager;
 	LvLEntitySystem* _pEntitySystem;
 	iLvLPhysicsEngine* _pPhysicsEngine;
 	EngineAlphaInput _input;
 
+
+
+
+	// Inherited via iLvLEngine
 
 
 };

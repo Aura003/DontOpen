@@ -19,6 +19,12 @@ public:
 	virtual void* GetHandle() = 0;
 	
 	virtual void PrepareDOP(const LvLDrawOp& dop) = 0;
+	
+	//Camera Stuff
+	virtual void SetCameraPosition(const XMFLOAT3& pos) = 0;
+	virtual  XMFLOAT3 GetCameraPosition() const = 0;
+	virtual void SetCameraZoom(float zoom) = 0;
+	virtual float GetCameraZoom() const = 0;
 
 protected:
 	virtual ~iLvLRenderer() {}
@@ -35,7 +41,8 @@ struct LvLDrawOp
 	int SortingOrder = 0;
 };
 
-extern "C" {
+extern "C" 
+{
 	typedef iLvLRenderer* (CreateRendererFunc)(iLvLEngine* engine);
 	LvL_API iLvLRenderer* CreateRenderer(iLvLEngine* engine);
 }

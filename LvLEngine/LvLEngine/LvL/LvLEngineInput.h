@@ -25,11 +25,13 @@ public:
 	virtual bool GetButtonDown(const char* name) override;
 	virtual bool GetButton(const char* name) override;
 	virtual bool GetButtonUp(const char* name) override;
-	virtual int GetMouseX() override;
-	virtual int GetMouseY() override;
+	virtual XMINT2 GetMousePosition() const override;
+
 
 	void ProcessEvent(SDL_Event* sd);
 
 private:
 	LvL_KEYMAP _pKeyBindings;
+
+
 };

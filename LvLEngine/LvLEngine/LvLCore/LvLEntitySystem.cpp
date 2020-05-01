@@ -14,6 +14,17 @@ for(LvL_COMPONENTMAP_IT cit = ccmap.begin(); cit!= ccmap.end();cit++)\
 for(LvL_ENTITYMAP_IT it=_pEntities.begin(); it!=_pEntities.end(); it++)\
 {  it->second->func;}
 
+int _anonymousEntity = 0;
+LvLEntitySystem::LvLEntitySystem(iLvLEngine * engine)
+{
+}
+LvLEntity* LvLEntitySystem::CreateEntity(bool withTransform)
+{
+	_anonymousEntity++;
+	string name = string("anonymous") + std::to_string(_anonymousEntity);
+	return CreateEntity(name.c_str(), withTransform);
+}
+
 LvLEntity* LvLEntitySystem::CreateEntity(const char* name, bool withTransform)
 {
 	//check if entity name already exists
@@ -23,7 +34,7 @@ LvLEntity* LvLEntitySystem::CreateEntity(const char* name, bool withTransform)
 		return NULL;
 	else 
 	{
-		LvLEntity* entity = new LvLEntity(name);
+		LvLEntity* entity = new LvLEntity(name, this);
 		_pEntities[sname] = entity;
 		if (withTransform) 
 		{
@@ -48,8 +59,8 @@ void LvLEntitySystem::DeleteEntity(const char* name)
 	LvL_ENTITYMAP_IT it = _pEntities.find(sname);
 	if (it != _pEntities.end()) 
 	{
-		//TODO release entity
-		_pEntities.erase(sname);
+		_pGarbageBin.push_back(it->second);
+	
 	}
 }
 
@@ -60,8 +71,22 @@ void LvLEntitySystem::PrepareDOP(iLvLRenderer* renderer)
 
 void LvLEntitySystem::Update(float deltaTime)
 {
+	while (_pGarbageBin.size()>0)
+	{
+		int i = _pGarbageBin.size();
+		LvLEntity* entity = _pGarbageBin[i - 1];
+		entity->OnDestroy();
+		_pEntities.erase(entity->_pName);
+		_pGarbageBin.pop_back();
+		delete entity;
+	}
 	LvL_ENTITYFUNC(Update(deltaTime));
 	
+}
+
+iLvLEngine* LvLEntitySystem::GetEngine()
+{
+	return _pEngine;
 }
 
 
@@ -120,9 +145,20 @@ void LvLEntity::OnTriggerExit(LvLEntity* other)
 	LvL_COMPONENTFUNC(OnTriggerExit(other), _pComponents);
 }
 
-LvLEntity::LvLEntity(const char* name)
+LvLEntitySystem* LvLEntity::GetEntitySystem() const
+{
+	return _entitySystem;
+}
+
+LvLEntity::~LvLEntity()
+{
+	LvL_COMPONENTFUNC(Release(), _pComponents);
+}
+
+LvLEntity::LvLEntity(const char* name, LvLEntitySystem* system)
 {
 	_pName = name;
+	_entitySystem = system;
 }
 
 void LvLEntity::Awake()
@@ -163,4 +199,9 @@ void LvLEntity::Update(float deltaTime)
 void LvLEntity::OnDestroy()
 {
 	LvL_COMPONENTFUNC(OnDestroy(), _pComponents);
+}
+
+void LvLEntity::DeleteEnity()
+{
+	GetEntitySystem()->DeleteEntity(_pName.c_str());
 }

@@ -38,6 +38,14 @@ public:
 	virtual void GetTransform(XMFLOAT3& position, XMFLOAT3& rotation, XMFLOAT3& scale) = 0;
 	
 	virtual void AddForce(const XMFLOAT3& force) = 0;
+	virtual void SetLinearVelocity(const XMFLOAT3& v) = 0;
+	virtual XMFLOAT3& GetLinearVelocity() const = 0;
+	virtual void SetAngularVelocity(float omega) = 0;
+	virtual XMFLOAT3& GetAngularVelocity() const = 0;
+	virtual void ApplyTorque(float torque, bool wake) = 0;
+
+
+
 	//ADD MORE! - ASSIGNMENT
 	//velocity - Get and Set
 	//Angular Velocity - Get and Set

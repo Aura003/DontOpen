@@ -4,20 +4,26 @@
 #include "iLvLTexture.h"
 #include "iLvLRenderer.h"
 #include "iLvLPhysicsEngine.h"
+#include "iLvLSoundSystem.h"
+#include "iLvLSound.h"
 #include "Modules.h"
 
 const char* EngineAlphaModule::GameDLL = NULL;
 const char* EngineAlphaModule::RendererDLL = NULL;
 const char* EngineAlphaModule::PhysicsDLL = NULL;
+const char* EngineAlphaModule::SoundDLL = NULL;
 
 HMODULE GameLib = NULL;
 HMODULE RendererLib = NULL;
 HMODULE PhysicsLib = NULL;
+HMODULE SoundLib = NULL;
 
 CreateGameFunc* CREATEGAMEFUNC = NULL;
 LoadTextureFunc* LOADTEXTUREFUNC = NULL;
+LoadSoundFunc* LOADSOUNDFUNC = NULL;
 CreateRendererFunc* CREATERENDERERFUNC = NULL;
 CreatePhysicsEngineFunc* CREATEPHYSICSENGINEFUNC = NULL;
+CreateSoundSystemFunc* CREATESOUNDSYSTEMFUNC = NULL;
 
 void EngineAlphaModule::LoadGameLib()
 {
@@ -65,6 +71,21 @@ void EngineAlphaModule::FreePhysicsLib()
 		PhysicsLib = NULL;
 	}
 }
+void EngineAlphaModule::LoadSoundLib()
+{
+	if (SoundLib == NULL)
+	{
+		SoundLib = LoadLibraryA(EngineAlphaModule::SoundDLL);
+	}
+}
+void EngineAlphaModule::FreeSoundLib()
+{
+	if (SoundLib)
+	{
+		FreeLibrary(SoundLib);
+		SoundLib = NULL;
+	}
+}
 iLvLGame* LvL_CreateGame(iLvLEngine* engine)
 {
 	
@@ -102,5 +123,24 @@ iLvLPhysicsEngine* LvL_CreatePhysicsEngine(iLvLEngine* engine)
 		CREATEPHYSICSENGINEFUNC = (CreatePhysicsEngineFunc*)GetProcAddress(PhysicsLib, "CreatePhysicsEngine");
 	}
 	return CREATEPHYSICSENGINEFUNC(engine);
+}
+
+iLvLSoundSystem* LvL_CreateSoundSystem(iLvLEngine* engine)
+{
+	if (CREATESOUNDSYSTEMFUNC == NULL)
+	{
+		CREATESOUNDSYSTEMFUNC = (CreateSoundSystemFunc*)GetProcAddress(SoundLib, "CreateSoundSystem");
+	}
+
+	return CREATESOUNDSYSTEMFUNC(engine);
+}
+
+iLvLSound* LvL_LoadSound(const char* path)
+{
+	if (LOADSOUNDFUNC == NULL)
+	{
+		LOADSOUNDFUNC = (LoadSoundFunc*)GetProcAddress(SoundLib, "LoadSound");
+	}
+	return LOADSOUNDFUNC(path);
 }
 

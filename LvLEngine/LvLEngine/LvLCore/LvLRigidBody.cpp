@@ -72,3 +72,23 @@ void LvLRigidBody::AddForce(const XMFLOAT3& force)
 {
 	_pBody->AddForce(force);
 }
+
+void LvLRigidBody::SetLinearVelocity(const XMFLOAT3& v)
+{
+	_pBody->SetLinearVelocity(v);
+}
+
+void LvLRigidBody::SetAngularVelocity(float omega)
+{
+	_pBody->SetAngularVelocity(omega);
+}
+
+XMFLOAT3 LvLRigidBody::GetLinearVelocity() const
+{
+	return _pBody->GetLinearVelocity();
+}
+
+XMFLOAT3 LvLRigidBody::GetAngularVelocity() const
+{
+	return _pBody->GetAngularVelocity();
+}

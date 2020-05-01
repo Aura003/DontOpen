@@ -20,8 +20,7 @@ public:
 	virtual bool GetButton(const char* name) = 0;
 	virtual bool GetButtonUp(const char* name) = 0;
 
-	virtual int GetMouseX() = 0;
-	virtual int GetMouseY() = 0;
+	virtual XMINT2 GetMousePosition() const = 0;
 protected:
 };
 

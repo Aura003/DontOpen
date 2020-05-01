@@ -2,10 +2,12 @@
 #include "iLvLEngine.h"
 #include "iLvLGame.h"
 #include"iLvLTexture.h"
+#include "iLvLSound.h"
 #include "iLvLRenderer.h"
 #include"LvLEntitySystem.h"
 #include"LvLResourceManager.h"
 #include "iLvLPhysicsEngine.h"
+#include "iLvLSoundSystem.h"
 #include "EngineAlpha.h"
 #include"Modules.h"
 
@@ -29,7 +31,7 @@ void EngineAlpha::StartEngine()
 {
 	_running = true;
 	EngineAlphaModule::LoadRendererLib();
-	_pEntitySystem = new LvLEntitySystem();
+	_pEntitySystem = new LvLEntitySystem(this);
 	
 	LvLWindowParams fake; //TODO
 	_pRenderer = LvL_CreateRenderer(this);
@@ -38,6 +40,10 @@ void EngineAlpha::StartEngine()
 	EngineAlphaModule::LoadPhysisLib();
 	_pPhysicsEngine = LvL_CreatePhysicsEngine(this);
 	_pPhysicsEngine->Initialize(XMFLOAT3(0, -9.8f, 0), 30, 32);
+
+	EngineAlphaModule::LoadSoundLib();
+	_pSoundSystem = LvL_CreateSoundSystem(this);
+	_pSoundSystem->Initialize(22050, AUDIO_S16SYS, 2, 4096);
 }
 	
 double _deltaTime = 0;
@@ -133,11 +139,32 @@ iLvLInput* EngineAlpha::GetInput()
 	return &_input;
 }
 
+iLvLSoundSystem* EngineAlpha::GetSoundSystem()
+{
+	return _pSoundSystem;
+}
+
+iLvLSound* EngineAlpha::LoadSound(const char* path)
+{
+	iLvLSound* audio = LvL_LoadSound(path);
+	if (audio) 
+	{
+		_resourceManager.Add(audio);
+	}
+	return audio;
+}
+
+iLvLSound* EngineAlpha::GetSound(const char* id)
+{
+	return (iLvLSound*)_resourceManager.Get(id);
+}
+
 void EngineAlpha::LoadResourceFolder(const char* folder)
 {
 	//all png
 	string path = folder;
 	string ext = ".png";
+	string soundext = ".mp3|.wav|.ogg";
 	for (const auto& res : filesystem::directory_iterator(path)) 
 	{
 		auto& relpath = res.path();
@@ -148,8 +175,15 @@ void EngineAlpha::LoadResourceFolder(const char* folder)
 			//hurray this is a texture
 			LoadTexture(tex.c_str());
 		}
+		else if (soundext.find(extractedExt) != std::string::npos) 
+		{
+			string aud = relpath.string();
+			//hurray this is an audio
+			LoadTexture(aud.c_str());
+		}
 	}
-	//all wav
+	
+	
 }
 
 iLvLPhysicsEngine* EngineAlpha::GetPhysicsEngine()

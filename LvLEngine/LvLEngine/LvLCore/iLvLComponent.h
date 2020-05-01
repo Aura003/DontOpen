@@ -9,6 +9,7 @@ enum eLvLComponentType
 	ctTransform,
 	ctSpriteRenderer,
 	ctRigidbody,
+	ctAudioSource,
 	ctHIGHEST
 };
 
@@ -22,7 +23,7 @@ enum eLvLComponentState
 
 class iLvLComponent
 {
-
+	LvL_ABSTRACT_REFCOUNT();
 public:
 	virtual ~iLvLComponent() {}
 	virtual void Awake() = 0;

@@ -70,7 +70,29 @@ iLvLPhysicsBody* LvLPhysicsEngine2D::CreateBox(eLvLPhysicsBody bodyType, const X
 
 iLvLPhysicsBody* LvLPhysicsEngine2D::CreateSphere(eLvLPhysicsBody bodyType, float radius, float density, float friction, float bounciness, bool isTrigger)
 {
-	return nullptr;
+	b2BodyDef bodyDef;
+	bodyDef.type = (b2BodyType)bodyType;
+	
+	b2CircleShape shape;
+	shape.m_p.Set(0, 0);
+	shape.m_radius = radius;
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &shape;
+
+	fixtureDef.density = density;
+	fixtureDef.friction = friction;
+	fixtureDef.restitution = bounciness;
+	fixtureDef.isSensor = isTrigger;
+
+	b2Body* body = _pWorld->CreateBody(&bodyDef);
+	body->CreateFixture(&fixtureDef);
+
+	LvLPhysicsBody2D* pbody = new LvLPhysicsBody2D(eLvLColliderType::clSphereCollider, body);
+
+	_bodies[body] = pbody;
+
+	return pbody;
 }
 
 iLvLPhysicsEngine* CreatePhysicsEngine(iLvLEngine* engine) 
@@ -88,10 +110,13 @@ void LvLContactListener::BeginContact(b2Contact* contact)
 	LvL_PHYSICSBODYMAP_IT ait = bodies.find(bodyA);
 	LvL_PHYSICSBODYMAP_IT bit = bodies.find(bodyB);
 
-	//call bodyA ontrigger
-	ait->second->OnTrigger(bit->second, eLvLTriggerEvent::teEnter);
-	//call bodyB ontrigger
-	bit->second->OnTrigger(ait->second, eLvLTriggerEvent::teEnter);
+	if (ait != bodies.end() && bit != bodies.end()) 
+	{
+		//call bodyA ontrigger
+		ait->second->OnTrigger(bit->second, eLvLTriggerEvent::teEnter);
+		//call bodyB ontrigger
+		bit->second->OnTrigger(ait->second, eLvLTriggerEvent::teEnter);
+	}
 }
 
 void LvLContactListener::EndContact(b2Contact* contact)
@@ -103,9 +128,12 @@ void LvLContactListener::EndContact(b2Contact* contact)
 	LvL_PHYSICSBODYMAP_IT ait = bodies.find(bodyA);
 	LvL_PHYSICSBODYMAP_IT bit = bodies.find(bodyB);
 
-	//call bodyA ontrigger
-	ait->second->OnTrigger(bit->second, eLvLTriggerEvent::teExit);
-	//call bodyB ontrigger
-	bit->second->OnTrigger(ait->second, eLvLTriggerEvent::teExit);
+	if (ait != bodies.end() && bit != bodies.end())
+	{
+		//call bodyA ontrigger
+		ait->second->OnTrigger(bit->second, eLvLTriggerEvent::teExit);
+		//call bodyB ontrigger
+		bit->second->OnTrigger(ait->second, eLvLTriggerEvent::teExit);
+	}
 }
 

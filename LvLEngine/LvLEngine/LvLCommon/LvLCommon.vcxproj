@@ -143,6 +143,8 @@
     <ClInclude Include="iLvLPhysicsBody.h" />
     <ClInclude Include="iLvLPhysicsEngine.h" />
     <ClInclude Include="iLvLRenderer.h" />
+    <ClInclude Include="iLvLSound.h" />
+    <ClInclude Include="iLvLSoundSystem.h" />
     <ClInclude Include="iLvLTexture.h" />
     <ClInclude Include="LvLBaseDef.h" />
     <ClInclude Include="iLvLGame.h" />

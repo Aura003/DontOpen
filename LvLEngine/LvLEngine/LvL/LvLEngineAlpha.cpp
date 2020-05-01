@@ -6,6 +6,8 @@
 #include "LvLEntitySystem.h"
 #include "LvLResourceManager.h"
 #include "iLvLPhysicsEngine.h"
+#include "iLvLSoundSystem.h"
+#include "iLvLSound.h"
 #include "LvLEngineAlpha.h"
 #include "LvLEngineModules.h"
 
@@ -29,7 +31,7 @@ void LvLEngineAlpha::StartEngine()
 {
 	_running = true;
 	LvLEngineModules::LoadRendererLib();
-	_pEntitySystem = new LvLEntitySystem();
+	_pEntitySystem = new LvLEntitySystem(this);
 
 	LvLWindowParams fake; //TODO
 	_pRenderer = LvL_CreateRenderer(this);
@@ -122,20 +124,42 @@ iLvLInput* LvLEngineAlpha::GetInput()
 	return &_input;
 	
 }
+iLvLSoundSystem* LvLEngineAlpha::GetSoundSystem()
+{
+	return _pSoundSystem;
+}
+iLvLSound* LvLEngineAlpha::LoadSound(const char* path)
+{
+	//TODO
+	return nullptr;
+}
+iLvLSound* LvLEngineAlpha::GetSound(const char* id)
+{
+	return (iLvLSound*)_resourceManager.Get(id);
+}
+
 void LvLEngineAlpha::LoadResourceFolder(const char* folder)
 {
 	//all png
 	string path = folder;
-	string ext = ".png";
+	string texext = ".png";
+	string soundext = ".mp3|.wav|.ogg";
 	for (const auto& res : filesystem::directory_iterator(path))
 	{
 		auto& relpath = res.path();
 		string extractedExt = relpath.extension().string();
-		if (ext == extractedExt)
+		if (texext == extractedExt)
 		{
 			string tex = relpath.string();
 			//hurray this is a texture
 			LoadTexture(tex.c_str());
+		}
+		else if(soundext.find(extractedExt) != std::string::npos)
+		{ 
+			string aud = relpath.string();
+			//hurray this is a sound
+			LoadTexture(aud.c_str());
+			
 		}
 	}
 	//all wav

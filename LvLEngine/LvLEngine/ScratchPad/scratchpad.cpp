@@ -2,6 +2,7 @@
 #include"iLvLEngine.h"
 #include "iLvLRenderer.h"
 #include "iLvLTexture.h" //temporary
+#include "iLvLSoundSystem.h"
 #include "LvLTransform.h"
 #include "LvLEntitySystem.h"
 #include"EngineAlpha.h"
@@ -40,6 +41,7 @@ int main(int nb, char* args[])
     }
     EngineAlphaModule::RendererDLL = "LvL2D";
     EngineAlphaModule::PhysicsDLL = "LvLPhysics2D";
+    EngineAlphaModule::SoundDLL = "LvLAudio";
 
     //LvL_SAFERELEASE(texture);
 
@@ -56,6 +58,7 @@ int main(int nb, char* args[])
     engine.LoadResourceFolder("assets");
     engine.LoadGame(game);
 
+    
     //iLvLTexture* texture = LvL_LoadTexture("../assets/Ohyea.png");
     //iLvLTexture* texture = engine.LoadTexture("../assets/Ohyea.png");
 

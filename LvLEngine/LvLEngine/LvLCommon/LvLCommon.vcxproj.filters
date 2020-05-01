@@ -45,5 +45,11 @@
     <ClInclude Include="iLvLPhysicsBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iLvLSound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iLvLSoundSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,13 @@ public:
 	virtual void SetOwner(void* owner) override;
 	virtual void* GetOwner() const override;
 
+	// Inherited via iLvLPhysicsBody
+	virtual void SetLinearVelocity(const XMFLOAT3& v) override;
+	virtual XMFLOAT3& GetLinearVelocity() const override;
+	virtual void SetAngularVelocity(float omega) override;
+	virtual XMFLOAT3& GetAngularVelocity() const override;
+	virtual void ApplyTorque(float torque, bool wake) override;
+
 private:
 	b2Body* _pBody = NULL;
 	eLvLColliderType _pColliderType;
@@ -31,6 +38,6 @@ private:
 	void* _pContext = NULL;
 	void* _pOwner = NULL;
 	LvLOnTriggerFunc _OnTrigger = NULL;
-
+	
 };
 

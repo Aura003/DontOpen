@@ -77,3 +77,34 @@ void* LvLPhysicsBody2D::GetOwner() const
 {
 	return _pOwner;
 }
+
+void LvLPhysicsBody2D::SetLinearVelocity(const XMFLOAT3& v)
+{
+	b2Vec2 bd(v.x, v.y);
+	_pBody->SetLinearVelocity(bd);
+}
+
+XMFLOAT3& LvLPhysicsBody2D::GetLinearVelocity() const
+{
+	b2Vec2 bd = _pBody-> GetLinearVelocity();
+	XMFLOAT3 _pLinearVelocity (bd.x, bd.y, 0);
+	return _pLinearVelocity;
+
+}
+
+void LvLPhysicsBody2D::SetAngularVelocity(float omega)
+{
+	_pBody->SetAngularVelocity(omega);
+}
+
+XMFLOAT3& LvLPhysicsBody2D::GetAngularVelocity() const
+{
+	float _angularVelocity = _pBody->GetAngularVelocity();
+	XMFLOAT3 AV(0, 0, _angularVelocity);
+	return AV;
+}
+
+void LvLPhysicsBody2D::ApplyTorque(float torque, bool wake)
+{
+	_pBody->ApplyTorque(torque, wake);
+}

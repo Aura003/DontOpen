@@ -20,6 +20,11 @@ public:
 	void UpdateBodyTransform();
 
 	void AddForce(const XMFLOAT3& force);
+	void SetLinearVelocity(const XMFLOAT3& v);
+	void SetAngularVelocity(float omega);
+	XMFLOAT3 GetLinearVelocity()const;
+	XMFLOAT3 GetAngularVelocity()const;
+	
 
 private:
 	iLvLPhysicsBody* _pBody = NULL;

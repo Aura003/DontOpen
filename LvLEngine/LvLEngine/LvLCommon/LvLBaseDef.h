@@ -51,6 +51,7 @@ int nspace::GetRefCount() {return _iRefCount;}
 
 
 #define LvL_DECLARE_COMPONENT(classType, componentType)\
+LvL_DECLARE_REFCOUNTTED();\
 public:\
 classType(LvLEntity* owner);\
 static const eLvLComponentType Type = (eLvLComponentType)componentType;\
@@ -66,6 +67,7 @@ LvLEntity* _pOwner = NULL;\
 eLvLComponentState _state = eLvLComponentState::esCreated;
 
 #define LvL_IMPLEMET_COMPONENT(classType)\
+LvL_IMPLEMENT_REFCOUNTED(classType);\
 classType::classType(LvLEntity* owner)\
 	{_pOwner = owner; owner->AddComponent(this);}\
 eLvLComponentType classType::GetType()\

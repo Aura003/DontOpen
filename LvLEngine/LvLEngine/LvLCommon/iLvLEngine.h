@@ -8,6 +8,8 @@ struct LvLWindowParams;
 class LvLEntitySystem;
 class iLvLInput;
 class iLvLPhysicsEngine;
+class iLvLSoundSystem;
+class iLvLSound;
 
 class iLvLEngine 
 {
@@ -31,6 +33,7 @@ public:
 	*/
 	virtual bool Update() = 0;
 	virtual iLvLRenderer* GetRenderer() = 0;
+	virtual iLvLSoundSystem* GetSoundSystem() = 0;
 	virtual void* GetWindowHandle() = 0;
 	virtual LvLResourceManager* GetResourceManager() = 0;
 	virtual LvLEntitySystem* GetEntitySystem() = 0;
@@ -45,6 +48,8 @@ public:
 	virtual iLvLTexture* LoadTexture(const char* path) = 0;
 	virtual iLvLTexture* GetTexture(const char* id) = 0;
 	virtual void LoadResourceFolder(const char* folder)=0;
+	virtual iLvLSound* LoadSound(const char* path) = 0;
+	virtual iLvLSound* GetSound(const char* id) = 0;
 
 	//game
 	virtual void LoadGame(const char* game) = 0;

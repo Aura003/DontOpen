@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LvLAudioSource.cpp" />
     <ClCompile Include="LvLEntitySystem.cpp" />
     <ClCompile Include="LvLResourceManager.cpp" />
     <ClCompile Include="LvLRigidBody.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iLvLComponent.h" />
+    <ClInclude Include="LvLAudioSource.h" />
     <ClInclude Include="LvLEntitySystem.h" />
     <ClInclude Include="LvLResourceManager.h" />
     <ClInclude Include="LvLRigidBody.h" />

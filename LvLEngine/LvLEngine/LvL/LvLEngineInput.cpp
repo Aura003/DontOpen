@@ -50,15 +50,6 @@ bool LvLEngineInput::GetButtonUp(const char* name)
 	return map.State == eLvLInputState::isInputUp;
 }
 
-int LvLEngineInput::GetMouseX()
-{
-	return 0;
-}
-
-int LvLEngineInput::GetMouseY()
-{
-	return 0;
-}
 
 void ProcessKeyboard(SDL_Event* sd, LvL_KEYMAP& map, eLvLInputState state)
 {
@@ -87,4 +78,9 @@ void LvLEngineInput::ProcessEvent(SDL_Event* sd)
 		ProcessKeyboard(sd, _pKeyBindings, eLvLInputState::isInputUp); break;
 
 	}
+}
+
+XMINT2 LvLEngineInput::GetMousePosition() const
+{
+	return XMINT2();
 }

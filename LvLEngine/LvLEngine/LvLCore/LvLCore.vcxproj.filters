@@ -36,6 +36,9 @@
     <ClCompile Include="LvLUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LvLAudioSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LvLEntitySystem.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LvLUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LvLAudioSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

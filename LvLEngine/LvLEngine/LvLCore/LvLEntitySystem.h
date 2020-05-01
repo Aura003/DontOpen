@@ -5,6 +5,7 @@ class iLvLComponent;
 class LvLEntity;
 class iLvLRenderer;
 class LvLTransform;
+class iLvLEngine;
 
 //map for entities (key = name)
 typedef std::map<std::string, LvLEntity*> LvL_ENTITYMAP;
@@ -14,28 +15,40 @@ typedef LvL_ENTITYMAP::iterator LvL_ENTITYMAP_IT;
 typedef std::map<int, iLvLComponent*> LvL_COMPONENTMAP;
 typedef LvL_COMPONENTMAP::iterator LvL_COMPONENTMAP_IT;
 
+typedef std::vector<LvLEntity*> LvL_ENTITYLIST;
+typedef LvL_ENTITYLIST::iterator LvL_ENTITYLIST_IT;
+
 class LvLEntitySystem
 {
 public:
 		//create entityl
+		LvLEntitySystem(iLvLEngine* engine);
+		LvLEntity* CreateEntity(bool withTransform = true);
 		LvLEntity* CreateEntity(const char* name, bool withTransform = true);
 		LvLEntity* GetEntity(const char* name);
 		//delete entity
 		void DeleteEntity(const char* name);
+
 		void PrepareDOP(iLvLRenderer* renderer);
 		void Update(float deltaTime);
+
+		iLvLEngine* GetEngine();
 private:
 		//map of entities with name as ID
+	iLvLEngine* _pEngine = NULL;
 	LvL_ENTITYMAP _pEntities;
+	LvL_ENTITYLIST _pGarbageBin;
 };
 class LvLEntity
 {
 public:
-	LvLEntity(const char* name);
+	LvLEntity(const char* name, LvLEntitySystem* system);
 	void Awake();
 	void Start();
 	void Update(float deltaTime);
 	void OnDestroy();
+
+	void DeleteEnity();
 
 	bool AddComponent(iLvLComponent* component);
 	template<class T>
@@ -63,12 +76,17 @@ public:
 
 	void OnTriggerEnter(LvLEntity* other);
 	void OnTriggerExit(LvLEntity* other);
+	LvLEntitySystem* GetEntitySystem() const;
+
+	int Tag = 0;
 
 private:
+	~LvLEntity();
 	std::string _pName;
 	LvL_COMPONENTMAP _pComponents;
 	friend class LvLEntitySystem;
 	LvLTransform* _pTransform = NULL;
+	LvLEntitySystem* _entitySystem = NULL;
 };
 //enitity
 //map of iComponents
